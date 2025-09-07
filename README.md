@@ -5,7 +5,6 @@ This is a basic interpreter for a custom, simple programming language designed t
 
 The interpreter can handle integer variable declarations, basic arithmetic operations with correct precedence, console input/output, and single-line comments.
 
----
 
 ## Language Features ⚡
 
@@ -39,7 +38,6 @@ The language is simple and C-like. Here are its main features:
 
 - **Comments:** Single-line comments are supported using `//`.
 
----
 
 ## Prerequisites 🛠️
 
@@ -62,7 +60,6 @@ sudo apt-get update
 sudo apt-get install build-essential flex bison
 ```
 
----
 
 ## How to Build Compile
 
@@ -78,7 +75,6 @@ sudo apt-get install build-essential flex bison
    make
    ```
 
----
 
 ## How to Run ▶️
 
@@ -94,7 +90,6 @@ Bash
 
 This command executes the `interpreter` and feeds it the contents of `test.lang` as the program to be interpreted. If your code uses the `vorood()` function, the interpreter will pause and wait for you to type a number into the terminal, even while reading the rest of the code from the file.
 
----
 
 ## Example Program (`test.lang`) 📄
 
@@ -119,7 +114,6 @@ int main() {
 }
 ```
 
----
 
 ## Makefile Commands 📜
 
@@ -132,4 +126,3 @@ The `Makefile` simplifies the build process:
 ---
 
 github link: https://github.com/parsany/InterpreterFlexBison
-
