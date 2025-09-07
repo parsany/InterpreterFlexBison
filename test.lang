@@ -1,0 +1,13 @@
+// test.lang
+
+int main() {
+    show(1000); // print statement
+
+    let user_age = vorood();
+    show(user_age);
+    
+    let doubled_age = user_age * 2;
+
+    show(doubled_age);
+    show(10*(vorood() + 5));
+}

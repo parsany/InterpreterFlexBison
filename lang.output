@@ -1,0 +1,442 @@
+Grammar
+
+    0 $accept: program $end
+
+    1 program: INT_KEYWORD MAIN_KEYWORD LPAREN RPAREN LBRACE statements RBRACE
+
+    2 statements: ε
+    3           | statements statement
+
+    4 statement: LET_KEYWORD IDENTIFIER ASSIGN_OP expression SEMICOLON
+    5          | SHOW_KEYWORD LPAREN expression RPAREN SEMICOLON
+
+    6 expression: term
+    7           | expression ADD_OP term
+    8           | expression SUB_OP term
+
+    9 term: factor
+   10     | term MUL_OP factor
+   11     | term DIV_OP factor
+
+   12 factor: primary
+
+   13 primary: INTEGER
+   14        | IDENTIFIER
+   15        | LPAREN expression RPAREN
+   16        | INPUT_KEYWORD LPAREN RPAREN
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    INTEGER <ival> (258) 13
+    IDENTIFIER <sval> (259) 4 14
+    INT_KEYWORD (260) 1
+    MAIN_KEYWORD (261) 1
+    LET_KEYWORD (262) 4
+    SHOW_KEYWORD (263) 5
+    INPUT_KEYWORD (264) 16
+    LPAREN (265) 1 5 15 16
+    RPAREN (266) 1 5 15 16
+    LBRACE (267) 1
+    RBRACE (268) 1
+    SEMICOLON (269) 4 5
+    ASSIGN_OP (270) 4
+    ADD_OP (271) 7
+    SUB_OP (272) 8
+    MUL_OP (273) 10
+    DIV_OP (274) 11
+
+
+Nonterminals, with rules where they appear
+
+    $accept (20)
+        on left: 0
+    program (21)
+        on left: 1
+        on right: 0
+    statements (22)
+        on left: 2 3
+        on right: 1 3
+    statement (23)
+        on left: 4 5
+        on right: 3
+    expression <ival> (24)
+        on left: 6 7 8
+        on right: 4 5 7 8 15
+    term <ival> (25)
+        on left: 9 10 11
+        on right: 6 7 8 10 11
+    factor <ival> (26)
+        on left: 12
+        on right: 9 10 11
+    primary <ival> (27)
+        on left: 13 14 15 16
+        on right: 12
+
+
+State 0
+
+    0 $accept: • program $end
+
+    INT_KEYWORD  shift, and go to state 1
+
+    program  go to state 2
+
+
+State 1
+
+    1 program: INT_KEYWORD • MAIN_KEYWORD LPAREN RPAREN LBRACE statements RBRACE
+
+    MAIN_KEYWORD  shift, and go to state 3
+
+
+State 2
+
+    0 $accept: program • $end
+
+    $end  shift, and go to state 4
+
+
+State 3
+
+    1 program: INT_KEYWORD MAIN_KEYWORD • LPAREN RPAREN LBRACE statements RBRACE
+
+    LPAREN  shift, and go to state 5
+
+
+State 4
+
+    0 $accept: program $end •
+
+    $default  accept
+
+
+State 5
+
+    1 program: INT_KEYWORD MAIN_KEYWORD LPAREN • RPAREN LBRACE statements RBRACE
+
+    RPAREN  shift, and go to state 6
+
+
+State 6
+
+    1 program: INT_KEYWORD MAIN_KEYWORD LPAREN RPAREN • LBRACE statements RBRACE
+
+    LBRACE  shift, and go to state 7
+
+
+State 7
+
+    1 program: INT_KEYWORD MAIN_KEYWORD LPAREN RPAREN LBRACE • statements RBRACE
+
+    $default  reduce using rule 2 (statements)
+
+    statements  go to state 8
+
+
+State 8
+
+    1 program: INT_KEYWORD MAIN_KEYWORD LPAREN RPAREN LBRACE statements • RBRACE
+    3 statements: statements • statement
+
+    LET_KEYWORD   shift, and go to state 9
+    SHOW_KEYWORD  shift, and go to state 10
+    RBRACE        shift, and go to state 11
+
+    statement  go to state 12
+
+
+State 9
+
+    4 statement: LET_KEYWORD • IDENTIFIER ASSIGN_OP expression SEMICOLON
+
+    IDENTIFIER  shift, and go to state 13
+
+
+State 10
+
+    5 statement: SHOW_KEYWORD • LPAREN expression RPAREN SEMICOLON
+
+    LPAREN  shift, and go to state 14
+
+
+State 11
+
+    1 program: INT_KEYWORD MAIN_KEYWORD LPAREN RPAREN LBRACE statements RBRACE •
+
+    $default  reduce using rule 1 (program)
+
+
+State 12
+
+    3 statements: statements statement •
+
+    $default  reduce using rule 3 (statements)
+
+
+State 13
+
+    4 statement: LET_KEYWORD IDENTIFIER • ASSIGN_OP expression SEMICOLON
+
+    ASSIGN_OP  shift, and go to state 15
+
+
+State 14
+
+    5 statement: SHOW_KEYWORD LPAREN • expression RPAREN SEMICOLON
+
+    INTEGER        shift, and go to state 16
+    IDENTIFIER     shift, and go to state 17
+    INPUT_KEYWORD  shift, and go to state 18
+    LPAREN         shift, and go to state 19
+
+    expression  go to state 20
+    term        go to state 21
+    factor      go to state 22
+    primary     go to state 23
+
+
+State 15
+
+    4 statement: LET_KEYWORD IDENTIFIER ASSIGN_OP • expression SEMICOLON
+
+    INTEGER        shift, and go to state 16
+    IDENTIFIER     shift, and go to state 17
+    INPUT_KEYWORD  shift, and go to state 18
+    LPAREN         shift, and go to state 19
+
+    expression  go to state 24
+    term        go to state 21
+    factor      go to state 22
+    primary     go to state 23
+
+
+State 16
+
+   13 primary: INTEGER •
+
+    $default  reduce using rule 13 (primary)
+
+
+State 17
+
+   14 primary: IDENTIFIER •
+
+    $default  reduce using rule 14 (primary)
+
+
+State 18
+
+   16 primary: INPUT_KEYWORD • LPAREN RPAREN
+
+    LPAREN  shift, and go to state 25
+
+
+State 19
+
+   15 primary: LPAREN • expression RPAREN
+
+    INTEGER        shift, and go to state 16
+    IDENTIFIER     shift, and go to state 17
+    INPUT_KEYWORD  shift, and go to state 18
+    LPAREN         shift, and go to state 19
+
+    expression  go to state 26
+    term        go to state 21
+    factor      go to state 22
+    primary     go to state 23
+
+
+State 20
+
+    5 statement: SHOW_KEYWORD LPAREN expression • RPAREN SEMICOLON
+    7 expression: expression • ADD_OP term
+    8           | expression • SUB_OP term
+
+    RPAREN  shift, and go to state 27
+    ADD_OP  shift, and go to state 28
+    SUB_OP  shift, and go to state 29
+
+
+State 21
+
+    6 expression: term •
+   10 term: term • MUL_OP factor
+   11     | term • DIV_OP factor
+
+    MUL_OP  shift, and go to state 30
+    DIV_OP  shift, and go to state 31
+
+    $default  reduce using rule 6 (expression)
+
+
+State 22
+
+    9 term: factor •
+
+    $default  reduce using rule 9 (term)
+
+
+State 23
+
+   12 factor: primary •
+
+    $default  reduce using rule 12 (factor)
+
+
+State 24
+
+    4 statement: LET_KEYWORD IDENTIFIER ASSIGN_OP expression • SEMICOLON
+    7 expression: expression • ADD_OP term
+    8           | expression • SUB_OP term
+
+    SEMICOLON  shift, and go to state 32
+    ADD_OP     shift, and go to state 28
+    SUB_OP     shift, and go to state 29
+
+
+State 25
+
+   16 primary: INPUT_KEYWORD LPAREN • RPAREN
+
+    RPAREN  shift, and go to state 33
+
+
+State 26
+
+    7 expression: expression • ADD_OP term
+    8           | expression • SUB_OP term
+   15 primary: LPAREN expression • RPAREN
+
+    RPAREN  shift, and go to state 34
+    ADD_OP  shift, and go to state 28
+    SUB_OP  shift, and go to state 29
+
+
+State 27
+
+    5 statement: SHOW_KEYWORD LPAREN expression RPAREN • SEMICOLON
+
+    SEMICOLON  shift, and go to state 35
+
+
+State 28
+
+    7 expression: expression ADD_OP • term
+
+    INTEGER        shift, and go to state 16
+    IDENTIFIER     shift, and go to state 17
+    INPUT_KEYWORD  shift, and go to state 18
+    LPAREN         shift, and go to state 19
+
+    term     go to state 36
+    factor   go to state 22
+    primary  go to state 23
+
+
+State 29
+
+    8 expression: expression SUB_OP • term
+
+    INTEGER        shift, and go to state 16
+    IDENTIFIER     shift, and go to state 17
+    INPUT_KEYWORD  shift, and go to state 18
+    LPAREN         shift, and go to state 19
+
+    term     go to state 37
+    factor   go to state 22
+    primary  go to state 23
+
+
+State 30
+
+   10 term: term MUL_OP • factor
+
+    INTEGER        shift, and go to state 16
+    IDENTIFIER     shift, and go to state 17
+    INPUT_KEYWORD  shift, and go to state 18
+    LPAREN         shift, and go to state 19
+
+    factor   go to state 38
+    primary  go to state 23
+
+
+State 31
+
+   11 term: term DIV_OP • factor
+
+    INTEGER        shift, and go to state 16
+    IDENTIFIER     shift, and go to state 17
+    INPUT_KEYWORD  shift, and go to state 18
+    LPAREN         shift, and go to state 19
+
+    factor   go to state 39
+    primary  go to state 23
+
+
+State 32
+
+    4 statement: LET_KEYWORD IDENTIFIER ASSIGN_OP expression SEMICOLON •
+
+    $default  reduce using rule 4 (statement)
+
+
+State 33
+
+   16 primary: INPUT_KEYWORD LPAREN RPAREN •
+
+    $default  reduce using rule 16 (primary)
+
+
+State 34
+
+   15 primary: LPAREN expression RPAREN •
+
+    $default  reduce using rule 15 (primary)
+
+
+State 35
+
+    5 statement: SHOW_KEYWORD LPAREN expression RPAREN SEMICOLON •
+
+    $default  reduce using rule 5 (statement)
+
+
+State 36
+
+    7 expression: expression ADD_OP term •
+   10 term: term • MUL_OP factor
+   11     | term • DIV_OP factor
+
+    MUL_OP  shift, and go to state 30
+    DIV_OP  shift, and go to state 31
+
+    $default  reduce using rule 7 (expression)
+
+
+State 37
+
+    8 expression: expression SUB_OP term •
+   10 term: term • MUL_OP factor
+   11     | term • DIV_OP factor
+
+    MUL_OP  shift, and go to state 30
+    DIV_OP  shift, and go to state 31
+
+    $default  reduce using rule 8 (expression)
+
+
+State 38
+
+   10 term: term MUL_OP factor •
+
+    $default  reduce using rule 10 (term)
+
+
+State 39
+
+   11 term: term DIV_OP factor •
+
+    $default  reduce using rule 11 (term)
